@@ -1,3 +1,4 @@
+import ChatInput from "./ChatInput";
 import MessageList from "./MessageList";
 
  const HomePage = () => {
@@ -6,6 +7,7 @@ import MessageList from "./MessageList";
             {/* message list */}
             <MessageList/>
             {/* chat input */}
+            <ChatInput />
             
         </main>
     );

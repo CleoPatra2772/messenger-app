@@ -1,6 +1,12 @@
 const MessageList = () => {
     return (
-        <div></div>
+        <div>
+            <p>Message</p>
+            <p>Message</p>
+            <p>Message</p>
+            <p>Message</p>
+            <p>Message</p>
+        </div>
     )
 }
 
