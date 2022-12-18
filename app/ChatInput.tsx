@@ -1,6 +1,8 @@
 'use client'
 
 import { FormEvent, useState } from "react";
+import { v4 as uuid } from 'uuid';
+import { Message } from "../typings";
 
 const ChatInput = () => {
     const [input, setInput] = useState('');
@@ -12,11 +14,41 @@ const ChatInput = () => {
         const messageToSend = input;
 
         setInput("");
-    }
+        
+
+        const id = uuid();
+
+        const message: Message = {
+            id,
+            message: messageToSend,
+            created_at: Date.now(),
+            username: 'Elon Musk',
+            profilePic: 'https://avatars.githubusercontent.com/u/99397498?v=4',
+            email: 'em@gmail.com',
+        };
+
+        const uploadMessageToUpstash = async () => {
+            const res = await fetch('/api/addMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message,
+                }),
+            });
+
+            const data = await res.json();
+            console.log('message added: ', data);
+        };
+
+        uploadMessageToUpstash();
+
+    };
 
     return (
         <form 
-        onSubmit={e => addMessage} 
+        onSubmit={addMessage} 
         className="fixed bottom-0 z-50 w-full flex px-10 py-5 space-x-2 border-t border-gray-100">
             <input type='text' 
             value={input}
