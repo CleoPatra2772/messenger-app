@@ -5,8 +5,13 @@ import { v4 as uuid } from 'uuid';
 import { Message } from "../typings";
 import useSWR from "swr";
 import fetcher from "../utils/fetchMessages";
+import { getServerSession } from 'next-auth/next';
 
-const ChatInput = () => {
+type Props ={
+    session: Awaited<ReturnType<typeof getServerSession>>
+}
+
+const ChatInput = ({session}: Props) => {
     const [input, setInput] = useState('');
     const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
     console.log(messages);
@@ -61,6 +66,7 @@ const ChatInput = () => {
         className="fixed bottom-0 z-50 w-full flex px-10 py-5 space-x-2 border-t border-gray-100 bg-white">
             <input type='text' 
             value={input}
+            disabled={!session}
             onChange={e => setInput(e.target.value)}
             placeholder="Enter message here..."
             className="flex-1 rounded border border-gray-300 focus:outline-none
