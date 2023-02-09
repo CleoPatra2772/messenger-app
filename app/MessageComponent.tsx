@@ -1,5 +1,6 @@
 import { Message } from '../typings';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 
 const MessageComponent = ({ message }: Props) => {
     const isUser = true;
+    const {data : session} = useSession();
 
 
     return (
